@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/base.css">
+    <link rel="stylesheet" href="./assets/css/home/main.css">
+    <link rel="stylesheet" href="./assets/css/transaction/transaction.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="./assets/css/home/footer.css">
+    <link rel="icon" href="./assets/images/favicon/favicon.ico"/>
+    <script src="./assets/js/visitor.js"></script>
+
+
+    <title>Order Transaction</title>
+
+</head>
+<body>
+<div class="shop">
+    <header class="header">
+        <div class="grid">
+            <div class="header_navbar">
+                <a href="./home.html">
+                    <div class="logo">
+                        <img src="./assets/images/logo/logo.png" alt="logo">
+                    </div>
+                </a>
+                <div class="menu_wrap">
+                    <div class="main_menu">
+                        <ul class="menu_list">
+                            <li class="menu_item home">
+                                <a href="./home.html">HOME</a>
+                            </li>
+                            <li class="menu_item men">
+                                <a href="./men.html">MEN</a>
+                            </li>
+                            <li class="menu_item women">
+                                <a href="./women.html">WOMEN</a>
+                            </li>
+                            <li class="menu_item">
+                                <a href="./contact.html">CONTACT</a>
+                            </li>
+                            <li class="menu_item">
+                                <a class="aboutus" href="./aboutus.html">ABOUT US</a>
+                            </li>
+                            <li class="menu_item">
+                                <a href="./cart_page.html">CART</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="transaction_title_area">
+        <div class="transaction_container">
+            <div class="col_left">
+                <h2>Shop Details</h2>
+            </div>
+            <div class="col_right">
+                <ul class="list_nav">
+                    <li><a href="./home.html">Home</a></li>
+                    <li><span>CHECK OUT</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="transaction_page_area">
+        <div class="transaction_page_container">
+            <div class="billing_details">
+                <div class="billing_title">
+                    <h3>Billing Details</h3>
+                </div>
+                <form class="form_input">
+                    <div class="form-row">
+                        <div class="single-row">
+                            <input name="first_name" placeholder="First name"
+                                   class="form-control first_name"
+                                   type="text">
+                        </div>
+                        <div class="single-row">
+                            <input name="last_name" placeholder="Last name"
+                                   class="form-control last_name"
+                                   type="text">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input name="company_name" placeholder="Company name"
+                               class="form-control company_name"
+                               type="text">
+                    </div>
+                    <div class="form-row">
+                        <div class="single-row">
+                            <input name="email_address"
+                                   placeholder="Email address"
+                                   class="form-control email_address" type="text">
+                        </div>
+                        <div class="single-row">
+                            <input name="phone_number" placeholder="Phone Number"
+                                   class="form-control phone_number" type="text">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="country">Country:</label>
+                        <div class="custom-select-wrapper">
+                            <select id="country" class="custom-select country">
+                                <option value="canada">Canada *</option>
+                                <option value="american">American</option>
+                                <option value="australia">Australia</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Address:</label>
+                        <textarea rows="3" name="street"
+                                  id="address" placeholder="Street address. Apartment, suite, unit etc. (optional)"
+                                  class="form-control address"></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="single-row">
+                            <input name="postcode" placeholder="Post Code/Zip"
+                                   class="form-control postcode"
+                                   type="text">
+                        </div>
+                        <div class="single-row">
+                            <input name="city" placeholder="Town/City"
+                                   class="form-control city" type="text">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Order note:</label>
+                        <textarea rows="3" name="note"
+                                  placeholder="Order note"
+                                  class="form-control note"
+                                  style="min-height: 140px;"></textarea>
+
+                    </div>
+                </form>
+            </div>
+            <div class="your_order">
+                <div class="your_order_title">
+                    <h3>Your Order</h3>
+                </div>
+                <div class="table_of_order">
+                    <table class="table-order">
+                        <thead>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Total</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!-- Print products and prices here by java script -->
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td><b>Total</b></td>
+                            <td class="total_amount">0</td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="payment-method">
+                    <input type="hidden" value="" class="hidden_payment_method"/>
+                    <ul>
+                        <li>
+                            <div class="custom-radio">
+                                <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input"
+                                       value="bank" onclick="handleChangeRadio('bank')">
+                                <label class="custom-control-label radio_value" for="customRadio1">Direct Bank
+                                    Transfer</label>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed lobortis sem.
+                                    Quisque at
+                                    sapien ut odio</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="custom-radio" style="margin-top: 10%;">
+                                <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input"
+                                       value="paypal" onclick="handleChangeRadio('paypal')">
+                                <label class="custom-control-label radio_value" for="customRadio2">PayPal</label>
+                            </div>
+
+                        </li>
+                    </ul>
+                </div>
+                <button class="button-place-order" onclick="purchase()">
+                    <span style="text-decoration: none;color: #ffffff;">Place Order</span>
+                </button>
+            </div>
+        </div>
+
+    </div>
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer_container_info">
+                <div class="single_footer">
+                    <h4>CONTACT</h4>
+                    <ul>
+                        <li>4060 Reppert Coal Road, MS</li>
+                        <li>39201 USA</li>
+                        <li>(+123) 685 78</li>
+                        <li>(+123) 685 78</li>
+                        <li>Contact@yourcompany.com</li>
+                    </ul>
+                </div>
+                <div class="single_footer chosen-footer">
+                    <h4>INFORMATION</h4>
+                    <ul>
+                        <li>About us</li>
+                        <li>Delivery Information</li>
+                        <li>Privacy Policy</li>
+                        <li>Terms & Conditions</li>
+                        <li>Contact us</li>
+                    </ul>
+                </div>
+                <div class="single_footer service chosen-single">
+                    <h4>Service</h4>
+                    <ul>
+                        <li>My Account</li>
+                        <li>Return</li>
+                        <li>(+123) 685 78</li>
+                        <li>(+123) 685 78</li>
+                        <li>Contact@yourcompany.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer_btm_area">
+                <div class="footer_social_icon">
+                    <ul class="footer_social_icon_list">
+                        <li><a href=""><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href=""><i class="fab fa-google"></i></a></li>
+                        <li><a href=""><i class="fab fa-linkedin"></i></a></li>
+                        <li><a href=""><i class="fab fa-twitter"></i></a></li>
+                        <li><a href=""><i class="fas fa-rss"></i></a></li>
+                    </ul>
+                </div>
+                <div class="footer_copyright">
+                    <p class="copyright_text">© 2021 All Rights Reserved FancyShop</p>
+                </div>
+                <div class="footer_payment_icon">
+                    <ul class="footer_payment_icon_list">
+                        <li><a href=""><i class="fab fa-cc-paypal"></i></a></li>
+                        <li><a href=""><i class="fab fa-cc-visa"></i></a></li>
+                        <li><a href=""><i class="fab fa-cc-discover"></i></a></li>
+                        <li><a href=""><i class="fab fa-cc-mastercard"></i></a></li>
+                        <li><a href=""><i class="fab fa-cc-amex"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script>
+    const parseCookie = str => {
+        if (str === '') {
+            return {}
+        }
+        return str
+            .split(';')
+            .map(v => v.split('='))
+            .reduce((acc, v) => {
+                acc[decodeURIComponent(v[0].trim())] = decodeURIComponent(v[1].trim());
+                return acc;
+            }, {});
+    }
+
+    const structuredCookie = parseCookie(document.cookie)
+    const token = structuredCookie['token']
+    let cartData = null
+
+    function handleChangeRadio(name) {
+        const s = document.querySelector('.hidden_payment_method')
+        if (name === 'bank') {
+            s.value = 'bank'
+        } else if (name === 'paypal') {
+            s.value = 'paypal'
+        }
+    }
+
+    function deleteCookie(path) {
+        document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/${path || ''}`;
+    }
+
+    async function purchase() {
+        // if (cartData === null || cartData.length === 0) {
+        //     alert('Nothing to purchase')
+        //     return;
+        // }
+
+        const first_name = document.querySelector('.first_name').value
+        const last_name = document.querySelector('.last_name').value
+        const company_name = document.querySelector('.company_name').value
+        const email_address = document.querySelector('.email_address').value
+        const phone_number = document.querySelector('.phone_number').value
+        const country = document.querySelector('.country').value
+        const address = document.querySelector('.address').value
+        const postcode = document.querySelector('.postcode').value
+        const city = document.querySelector('.city').value
+        const note = document.querySelector('.note').value
+
+        const bank = document.querySelector('#customRadio1').value
+        const paypal = document.querySelector('#customRadio2').value
+        const hidden_payment = document.querySelector('.hidden_payment_method').value
+
+
+        const package = {
+            first_name: first_name,
+            last_name: last_name,
+            company_name: company_name,
+            email_address: email_address,
+            phone_number: phone_number,
+            country: country,
+            address: address,
+            postcode: postcode,
+            city: city,
+            note: note,
+            hidden_payment: hidden_payment
+        }
+
+        const isValid = Object.keys(package).reduce((acc, cur) => {
+            if (cur !== 'note') {
+                return acc && !!package[cur]
+            } else {
+                return acc
+            }
+        }, true)
+
+        if (!isValid) {
+            alert('Please fill in all fields')
+            return;
+        }
+
+        fetch('/buy', {
+            method: 'POST', // *GET, POST, PUT, DELETE, etc.
+            mode: 'same-origin', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `bearer ${token}`
+            },
+            redirect: 'follow', // manual, *follow, error
+            referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+            body: JSON.stringify(package)
+        }).then(res => {
+            if (res.status === 401) {
+                deleteCookie()
+                alert('Your session has ended. Please login to continue.')
+                document.location.href = '/login.html'
+            } else {
+                return res.json()
+            }
+        })
+            .then(x => {
+                if (x && x.error) {
+                    throw new Error(x.error)
+                } else {
+                    // console.log('No error')
+                }
+                document.location.href = '/order_success.html'
+            }).catch(err => {
+            console.warn(err.message)
+            alert(err.message)
+        })
+    }
+
+
+    async function getCurrentCart() {
+        return fetch('/get_cart_id', {
+            method: 'GET', // *GET, POST, PUT, DELETE, etc.
+            mode: 'same-origin', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `bearer ${token}`
+            },
+            redirect: 'follow', // manual, *follow, error
+            referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+        }).then(x => {
+            if (x.status === 401) {
+                //unauthorized. Maybe out of session
+                deleteCookie()
+                alert('Your session has ended. Please login to continue.')
+                document.location.href = '/login.html'
+            }
+            return x.json()
+        }).then(x => {
+            if (x && x.error) {
+                throw new Error(x.error)
+            }
+            return x
+        }).catch(err => {
+            console.warn(err.message)
+            alert(err.message)
+            return null
+        })
+    }
+
+    async function start() {
+        if (!token) {
+            alert('You session has expired. Please login to continue.')
+            document.location.href = '/login.html'
+            return;
+        }
+
+        let cart_id = null
+        const cart = await getCurrentCart()
+        if (!cart) {
+            return
+        }
+        // console.log(cart)
+        cartData = cart
+
+        const p = document.querySelector('.table-order > tbody')
+
+        const close_cart = cart.reduce((acc, cur) => {
+            if (!acc[cur.product_id]) {
+                acc[cur.product_id] = {
+                    name: cur.product_name,
+                    price: cur.quantity * cur.price
+                }
+            } else {
+                acc[cur.product_id].price += cur.quantity * cur.price
+            }
+            return acc
+        }, {})
+
+        p.innerHTML = (`
+        ${Object.values(close_cart).reduce((acc, item) => {
+            return acc + `
+                        <tr>
+                            <td>${item.name}</td>
+                            <td>$${item.price.toFixed(2)}</td>
+                        </tr>
+`
+        }, '')}
+        `)
+
+        const total = Object.values(close_cart).reduce((acc, cur) => acc + cur.price, 0)
+        document.querySelector('.total_amount').innerText = `$${total.toFixed(2)}`
+
+    }
+
+    start()
+
+</script>
+
+</body>
+
+<link rel="stylesheet" href="assets/css/responsive_overlord/order-history.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/general.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/header.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/slider.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/category_bundle.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/product-bundle.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/footer.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/list-of-products.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/about-us.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/cart.css">
+<link rel="stylesheet" href="assets/css/responsive_overlord/order-detail.css">
+
+</html>

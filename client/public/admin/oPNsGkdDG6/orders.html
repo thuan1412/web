@@ -1,0 +1,417 @@
+<html lang="en">
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="./assets/images/favicon/favicon.ico"/>
+<link rel="stylesheet" href="./assets/css/admin_login/admin_login.css">
+<link rel="stylesheet" href="./assets/css/base.css">
+<link rel="stylesheet" href="./assets/css/home/main.css">
+<link rel="stylesheet" href="./assets/css/home/slider.css">
+<link rel="stylesheet" href="./assets/css/home/promo.css">
+<link rel="stylesheet" href="./assets/css/home/product_area.css">
+<link rel="stylesheet" href="./assets/css/home/footer.css">
+<link rel="stylesheet" href="./assets/css/about_us/about_us.css">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+
+<link rel="stylesheet" href="./assets/css/admin/general-header.css">
+<link rel="stylesheet" href="./assets/css/admin/big-table.css">
+
+<script src="./assets/js/admin/tokenManipulation.js"></script>
+<script src="./assets/js/admin/immediateRedirect.js"></script>
+<script src="./assets/js/admin/utils.js"></script>
+<script src="./assets/js/admin/pagination.js"></script>
+
+
+<head>
+    <title>Admin - Orders</title>
+</head>
+
+<body>
+
+<div class="shop">
+    <!-- Header -->
+    <header class="header">
+        <div class="grid">
+            <div class="header_navbar">
+                <a href="./home.html">
+                    <div class="logo">
+                        <img src="./assets/images/logo/logo.png" alt="logo">
+                    </div>
+                </a>
+
+                <div class="menu_wrap">
+                    <div class="main_menu">
+                        <ul class="menu_list">
+                            <li class="menu_item">
+                                <a class="admin-panel-link link" href="./home.html">ADMIN PANEL</a>
+                            </li>
+                            <li class="menu_item">
+                                <a class="orders-link link link-active" href="./orders.html">ORDERS</a>
+                            </li>
+                            <li class="menu_item">
+                                <a class="products-link link" href="./products.html">PRODUCTS</a>
+                            </li>
+                            <li class="menu_item">
+                                <a class="categories-link link" href="./categories.html">CATEGORIES</a>
+                            </li>
+                            <li class="menu_item">
+                                <a class="customers-link link" href="./customers.html">CUSTOMERS</a>
+                            </li>
+
+                            <li class="menu_item">
+                                <a class="logout-link link" href="#" onclick="logout()" style="color: #558776">LOG
+                                    OUT</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </header>
+</div>
+
+<div class="table-config">
+    <div class="cart_page_area">
+        <div class="cart_page_container">
+            <div class="board-space" style="width:100%">
+
+                <div class="hyper-values">
+                    <div class="display-box display-page-label">
+                        <span class="display-prefix">Page: </span> <span
+                            class="display-value display-page-label-value"></span>
+                        <i class="fas fa-times close" onclick="resetPage()"></i>
+                    </div>
+
+                    <div class="display-box display-target-label">
+                        <span class="display-prefix">Target: </span> <span
+                            class="display-value display-target-label-value"></span>
+                        <!--                        <i class="fas fa-times close"></i>-->
+                    </div>
+
+                    <div class="display-box display-sort-label">
+                        <span class="display-prefix">Sort: </span> <span
+                            class="display-value display-sort-label-value"></span>
+                        <!--                        <i class="fas fa-times close"></i>-->
+                    </div>
+
+                    <div class="display-box display-search-label">
+                        <span class="display-prefix">Search: </span> <span
+                            class="display-value display-sort-label-value"></span> <i
+                            class="fas fa-times close" onclick="resetSearch()"></i>
+                    </div>
+                </div>
+
+                <table class="styled-table">
+                    <thead>
+                    <tr>
+                        <th class="t_id" onclick="openPopup('id')">Id <i class="fas fa-sort"></i></th>
+                        <th class="t_customer_id" onclick="openPopup('customer_id')">Customer ID <i
+                                class="fas fa-sort"></i></th>
+                        <th class="t_send_email" onclick="openPopup('email')">Send Email <i
+                                class="fas fa-sort"></i></th>
+                        <th class="date" onclick="openPopup('order_date')">Order Date <i class="fas fa-sort"></i>
+                        </th>
+                        <th class="status" onclick="openPopup('status')">Status <i class="fas fa-sort"></i></th>
+                        <th rowspan="3" class="action">Actions</th>
+                    </tr>
+                    </thead>
+
+                    <tbody class="injectable-space">
+                    </tbody>
+                </table>
+
+
+                <button class="stickyness" onclick="window.scrollTo(0,0);"><i class="fas fa-chevron-up icon-up"></i>
+                </button>
+
+                <div class="naviagte-buttons">
+                    <div class="navigate-left">
+                        <button class="control-button cb-left" onclick="toLastPage()"> <</button>
+                    </div>
+                    <div class="navigate-right">
+                        <button class="control-button cb-right" onclick="toNextPage()"> ></button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="popopen" onclick="closePopup()">
+    <div class="popopen-content no-prop">
+        <form class="popopen-form">
+            <input type="hidden" name="field" class="target-field"/>
+
+            <div class="major-sort">
+                <label for="sort-value" class="sort-label first-sort-label">Sort By</label>
+                <select name="sort-value" class="sort-choice">
+                    <option value="asc">Ascending</option>
+                    <option value="desc">Descending</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="search-value" class="search-label">Search For</label>
+                <input type="text" name="search-value"/>
+            </div>
+
+            <div class="popup-buttons">
+                <button type="button" onclick="closePopup()" class="action-button cancel-button">Close</button>
+                <button type="submit" class="action-button view-button">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    const PAGE_SIZE = 30
+
+    async function getOrders(sortby = 'order_date', order = 'desc', page = 0, searchby = '') {
+        return fetch(`/admin/orders?sortby=${sortby}&order=${order}&offset=${page * PAGE_SIZE}&limit=${PAGE_SIZE}${searchby ? `&searchby=${searchby}` : ''}`, {
+            method: 'GET', // *GET, POST, PUT, DELETE, etc.
+            mode: 'same-origin', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `bearer ${token}`
+            },
+            redirect: 'follow', // manual, *follow, error
+            referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+        }).then(x => {
+            if (x.status >= 400) {
+                if (x.status === 401) {
+                    //unauthorized. Maybe out of session
+                    deleteCookie1()
+                    alert('Your session has ended. Please log in again')
+                    document.location.replace('./login.html')
+                }
+                throw new Error(x.statusText)
+            }
+            return x.json()
+        }).catch(err => {
+            alert(err.toString())
+            return null
+        })
+    }
+
+    async function start(sortby = 'order_date', order = 'desc', page = 0, searchby = '', target) {
+        if (!isLogin) {
+            return;
+        }
+        if (getParam('page', 0) == 0) {
+            document.querySelector('.cb-left').style.display = 'none'
+        }
+
+        const orders = await getOrders(sortby, order, page, searchby)
+        if (!orders) {
+            return;
+        }
+        const injectSpace = document.querySelector('.injectable-space')
+        const space = document.querySelector('.board-space')
+
+        if (orders.length < PAGE_SIZE) {
+            document.querySelector('.cb-right').style.display = 'none'
+        }
+
+        if (orders.length === 0) {
+            // space.innerHTML = (`
+            //     <h4 style="font-size: 20px">Orders are empty</h4>
+            // `)
+        } else {
+            injectSpace.innerHTML = (`
+            ${orders.reduce((acc, cur) => {
+                const {id = null, order_date = '', status, customer_id, email} = cur
+                const highlight = status === 'pending'
+                const lowlight = status === 'cancelled'
+                const goodlight = status === 'delivered'
+                const queerlight = status === 'confirmed'
+
+                const canView = true;
+                const canAccept = status === 'pending'
+                const canCancel = status === 'pending' || status === 'confirmed'
+                const canSetDelivered = status === 'confirmed'
+                const canBackPending = status !== 'pending'
+
+                return acc + `
+                    <tr class="${`entity-id-${id || ''}`} ${highlight ? 'active-row' : 'normal-row'} ${lowlight ? 'bad-row' : ''} ${goodlight ? 'good-row' : ''} ${queerlight ? 'queer-row' : ''}">
+                        <td>${id}</td>
+                        <td><a href="./customers.html?sortby=id&searchValue=${customer_id}&target=${customer_id}">${customer_id}</a></td>
+                        <td>${email}</td>
+                        <td>${order_date}</td>
+                        <td>${capitalize(status)}</td>
+                        <td>
+                            <div class="button-holder">
+                                ${canView ? `<button class="action-button view-button" onclick="handleView(${id})">View</button>` : ''}
+                                ${canBackPending ? `<button class="action-button revert-button" onclick="handleRevert(${id})">Revert</button>` : ''}
+                                ${canAccept ? `<button class="action-button accept-button" onclick="handleAccept(${id})">Accept</button>` : ''}
+                                ${canSetDelivered ? `<button class="action-button deliver-button" onclick="handleDelivered(${id})">Delivered</button>` : ''}
+                                ${canCancel ? `<button class="action-button cancel-button" onclick="handleCancel(${id})">Cancel</button>` : ''}
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }, '')}
+            `)
+            // console.log('t', target)
+            if (target) {
+                const mayScrollToElement = document.querySelector(`.entity-id-${target}`)
+                if (mayScrollToElement) {
+                    mayScrollToElement.scrollIntoView()
+                }
+            }
+        }
+    }
+
+    function displayOrRemove(field, value) {
+        if (!value || value === "0") {
+            document.querySelector(`.${field}`).style.display = 'none'
+        } else {
+            document.querySelector(`.${field} .display-value`).innerText = value
+        }
+    }
+
+    const current_url = new URL(window.location.href)
+    const sortby = current_url.searchParams.get('sortby') || 'order_date'
+    const order = current_url.searchParams.get('order') || 'desc'
+    const page = current_url.searchParams.get('page') || 0
+    const searchby = current_url.searchParams.get('searchValue') || 0
+    const target = getParam('target', null)
+
+    displayOrRemove('display-page-label', page)
+    displayOrRemove('display-target-label', sortby)
+    displayOrRemove('display-sort-label', order)
+    displayOrRemove('display-search-label', searchby)
+
+    start(sortby, order, page, searchby, target);
+</script>
+
+<script>
+    async function updateStatus(id, status) {
+        return fetch('/admin/orders', {
+            method: 'PUT', // *GET, POST, PUT, DELETE, etc.
+            mode: 'same-origin', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `bearer ${token}`
+            },
+            redirect: 'follow', // manual, *follow, error
+            referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+            body: JSON.stringify({
+                id: id,
+                status: status
+            })
+        }).then(x => {
+            if (x.status === 401) {
+                //unauthorized. Maybe out of session
+                deleteCookie1()
+                alert('Your session has ended. Please log in again')
+                document.location.replace('./login.html')
+            }
+            // reload()
+            return x.json()
+        })
+            .then((x) => {
+                if (x && x.error) {
+                    throw new Error(x.error)
+                } else {
+                    reload(x.id)
+                }
+            })
+            .catch(err => {
+                alert(err.toString())
+                return null
+            })
+    }
+
+    const handleRevert = (id) => {
+        //set status = pending
+        updateStatus(id, 'pending')
+    }
+    const handleAccept = (id) => {
+        // confirmed
+        updateStatus(id, 'confirmed')
+
+    }
+    const handleDelivered = (id) => {
+        //delivered
+        updateStatus(id, 'delivered')
+
+    }
+    const handleCancel = (id) => {
+        //cancel
+        updateStatus(id, 'cancelled')
+
+    }
+    const handleView = (id) => {
+        window.open(`./orderdetail.html?receipt_id=${id}`)
+    }
+</script>
+
+<script>
+    function openPopup(id) {
+        document.querySelectorAll('.popopen').forEach(e => {
+            e.classList.add('active')
+        })
+        if (id) {
+            document.querySelectorAll('.popopen .target-field').forEach(e => {
+                e.value = id
+            })
+        }
+    }
+
+    function closePopup() {
+        document.querySelectorAll('.popopen').forEach(e => {
+            e.classList.remove('active')
+        })
+    }
+
+    function processForm(e) {
+        // console.log('here')
+        if (e.preventDefault) {
+            e.preventDefault();
+        }
+        const formData = new FormData(e.target)
+        const sortby = formData.get('field')
+        const sortValue = formData.get('sort-value')
+        const searchValue = formData.get('search-value') || ""
+
+        changePage(url_mutation({sortby: sortby, order: sortValue, page: 0, searchValue: searchValue, target: ''}))
+        return false
+    }
+
+    const form = document.querySelector('.popopen-form');
+    if (form.attachEvent) {
+        form.attachEvent("submit", processForm);
+    } else {
+        form.addEventListener("submit", processForm);
+    }
+</script>
+
+<script>
+    function resetPage() {
+        changePage(removeParam('target', removeParam('page', window.location.href)))
+    }
+
+    function resetSearch() {
+        changePage(removeParam('target', removeParam('searchValue', window.location.href)))
+    }
+</script>
+
+<script src="./assets/js/admin/popupProp.js"></script>
+</body>
+
+<style>
+    .naviagte-buttons {
+        margin-bottom: 20px;
+    }
+</style>
+
+</html>

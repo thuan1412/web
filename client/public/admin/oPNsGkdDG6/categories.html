@@ -1,0 +1,844 @@
+<html lang="en">
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="./assets/images/favicon/favicon.ico"/>
+<link rel="stylesheet" href="./assets/css/admin_login/admin_login.css">
+<link rel="stylesheet" href="./assets/css/base.css">
+<link rel="stylesheet" href="./assets/css/home/main.css">
+<link rel="stylesheet" href="./assets/css/home/slider.css">
+<link rel="stylesheet" href="./assets/css/home/promo.css">
+<link rel="stylesheet" href="./assets/css/home/product_area.css">
+<link rel="stylesheet" href="./assets/css/home/footer.css">
+<link rel="stylesheet" href="./assets/css/about_us/about_us.css">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+
+<link rel="stylesheet" href="./assets/css/admin/general-header.css">
+<link rel="stylesheet" href="./assets/css/admin/big-table.css">
+<link rel="stylesheet" href="./assets/css/admin/tooltip.css">
+
+
+<script src="./assets/js/admin/tokenManipulation.js"></script>
+<script src="./assets/js/admin/immediateRedirect.js"></script>
+<script src="./assets/js/admin/utils.js"></script>
+<script src="./assets/js/admin/pagination.js"></script>
+
+
+<head>
+    <title>Admin - Categories</title>
+</head>
+
+<body>
+
+<div class="shop">
+    <!-- Header -->
+    <header class="header">
+        <div class="grid">
+            <div class="header_navbar">
+                <a href="./home.html">
+                    <div class="logo">
+                        <img src="./assets/images/logo/logo.png" alt="logo">
+                    </div>
+                </a>
+
+                <div class="menu_wrap">
+                    <div class="main_menu">
+                        <ul class="menu_list">
+                            <li class="menu_item">
+                                <a class="admin-panel-link link" href="./home.html">ADMIN PANEL</a>
+                            </li>
+                            <li class="menu_item">
+                                <a class="orders-link link" href="./orders.html">ORDERS</a>
+                            </li>
+                            <li class="menu_item">
+                                <a class="products-link link" href="./products.html">PRODUCTS</a>
+                            </li>
+                            <li class="menu_item">
+                                <a class="categories-link link link-active" href="./categories.html">CATEGORIES</a>
+                            </li>
+                            <li class="menu_item">
+                                <a class="customers-link link" href="./customers.html">CUSTOMERS</a>
+                            </li>
+
+                            <li class="menu_item">
+                                <a class="logout-link link" href="#" onclick="logout()" style="color: #558776">LOG
+                                    OUT</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </header>
+</div>
+
+<div class="table-config">
+    <div class="cart_page_area">
+        <div class="cart_page_container">
+            <div class="board-space" style="width:100%">
+
+                <div class="addon-before-main-dish">
+                    <div class="hyper-values">
+                        <div class="display-box display-page-label">
+                            <span class="display-prefix">Page: </span> <span
+                                class="display-value display-page-label-value"></span>
+                            <i class="fas fa-times close" onclick="resetPage()"></i>
+                        </div>
+
+                        <div class="display-box display-target-label">
+                            <span class="display-prefix">Target: </span> <span
+                                class="display-value display-target-label-value"></span>
+                        </div>
+
+                        <div class="display-box display-sort-label">
+                            <span class="display-prefix">Sort: </span> <span
+                                class="display-value display-sort-label-value"></span>
+                        </div>
+
+                        <div class="display-box display-search-label">
+                            <span class="display-prefix">Search: </span> <span
+                                class="display-value display-sort-label-value"></span> <i
+                                class="fas fa-times close" onclick="resetSearch()"></i>
+                        </div>
+                    </div>
+
+                    <div class="add-new-entry">
+                        <button class="add-new-button action-button" onclick="handleAddNew()">Add New <i
+                                class="fas fa-plus add-icon"></i></button>
+                    </div>
+                </div>
+
+                <table class="styled-table">
+                    <thead>
+                    <tr>
+                        <th class="t_id" onclick="openPopup('id')">Id <i class="fas fa-sort"></i></th>
+                        <th class="t_customer_id" onclick="openPopup('name')">Categories Name <i
+                                class="fas fa-sort"></i></th>
+
+                        <th class="t_customer_id" onclick="openPopup('description')">Description <i
+                                class="fas fa-sort"></i></th>
+
+                        <th class="t_customer_id" onclick="openPopup('image_link')">Image Link <i
+                                class="fas fa-sort"></i></th>
+
+                        <th class="t_customer_id" onclick="openPopup('parent_category')">Parent Category<i
+                                class="fas fa-sort"></i></th>
+
+                        <!--                        <th class="t_customer_id" onclick="openPopup('available')">Available <i-->
+                        <!--                                class="fas fa-sort"></i></th>-->
+
+
+                        <th rowspan="3" class="action">Actions</th>
+                    </tr>
+                    </thead>
+
+                    <tbody class="injectable-space">
+                    </tbody>
+                </table>
+
+
+                <button class="stickyness" onclick="window.scrollTo(0,0);"><i class="fas fa-chevron-up icon-up"></i>
+                </button>
+
+                <div class="naviagte-buttons">
+                    <div class="navigate-left">
+                        <button class="control-button cb-left" onclick="toLastPage()"> <</button>
+                    </div>
+                    <div class="navigate-right">
+                        <button class="control-button cb-right" onclick="toNextPage()"> ></button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="popopen sortpop" onclick="closePopup()">
+    <div class="popopen-content no-prop">
+        <form class="popopen-form">
+            <input type="hidden" name="field" class="target-field"/>
+
+            <div class="major-sort">
+                <label for="sort-value" class="sort-label first-sort-label">Sort By</label>
+                <select name="sort-value" class="sort-choice">
+                    <option value="asc">Ascending</option>
+                    <option value="desc">Descending</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="search-value" class="search-label">Search For</label>
+                <input type="text" name="search-value"/>
+            </div>
+
+            <div class="popup-buttons">
+                <button type="button" onclick="closePopup()" class="action-button cancel-button">Close</button>
+                <button type="submit" class="action-button view-button">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div class="popopen addpop" onclick="closePopup()">
+    <div class="popopen-content no-prop long">
+        <h4 class="popopen-title"><span class="pop-action">Edit</span> <span class="pop-target">category</span></h4>
+        <form class="popopen-form" onkeydown="return event.key != 'Enter';">
+            <input type="hidden" name="field" class="target-field"/>
+
+            <input type="hidden" name="submit_type" class="p-submit_type" value="edit"/>
+
+            <div class="entry category-id-entry">
+                <label for="id" class="search-label align-label">Category ID</label>
+                <input type="text" name="id" readonly class="p-id readonly-input"/>
+            </div>
+
+            <div class="entry">
+                <label for="name" class="search-label align-label">Name</label>
+                <input type="text" name="name" class="p-name" required/>
+            </div>
+
+            <div class="with-area entry">
+                <label for="description" class="search-label align-label">Description</label>
+                <textarea cols="30" rows="5" name="description" class="p-description t-ara" required></textarea>
+            </div>
+
+            <div class="entry sentry-looker">
+                <label for="image_link" class="search-label align-label">Image</label>
+                <div class="img-container">
+                    <input type="file" name="image_link" class="p-image_link upload-zone-1 upload-input"
+                           accept=".jpg, .jpeg, .png" title=""/>
+
+                    <div class="preview upload-zone-1 upload-preview">
+                        <p class="nothing-text"></p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="entry">
+                <label for="parent_category" class="search-label align-label">Parent Category</label>
+                <select class="p-parent_category sort-choice custom-choice even-bigger-max-option"
+                        name="parent_category" required>
+
+                </select>
+            </div>
+
+            <div class="popup-buttons">
+                <button type="button" onclick="closePopup()" class="action-button cancel-button">Close</button>
+                <button type="submit" class="action-button view-button">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<script>
+    const PAGE_SIZE = 30
+    const path = '/admin/categories'
+
+    let savedProducts = null
+
+    async function getCategories(sortby = 'name', order = 'asc', page = 0, searchby = '') {
+        return fetch(`${path}?sortby=${sortby}&order=${order}&offset=${page * PAGE_SIZE}&limit=${PAGE_SIZE}${searchby ? `&searchby=${searchby}` : ''}`, {
+            method: 'GET', // *GET, POST, PUT, DELETE, etc.
+            mode: 'same-origin', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `bearer ${token}`
+            },
+            redirect: 'follow', // manual, *follow, error
+            referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+        }).then(x => {
+            //TODO: fix this
+            if (x.status >= 400) {
+                if (x.status === 401) {
+                    //unauthorized. Maybe out of session
+                    deleteCookie1()
+                    alert('Your session has ended. Please log in again')
+                    document.location.replace('./login.html')
+                }
+                throw new Error(x.statusText)
+            }
+            return x.json()
+        }).catch(err => {
+            alert(err.toString())
+            return null
+        })
+    }
+
+    async function start(sortby = 'name', order = 'asc', page = 0, searchby = '', target) {
+        if (!isLogin) {
+            return;
+        }
+        if (getParam('page', 0) == 0) {
+            document.querySelector('.cb-left').style.display = 'none'
+        }
+
+        const categories = await getCategories(sortby, order, page, searchby)
+        if (!categories) {
+            return;
+        }
+        savedProducts = categories
+
+        const injectSpace = document.querySelector('.injectable-space')
+        const space = document.querySelector('.board-space')
+
+        if (categories.length < PAGE_SIZE) {
+            document.querySelector('.cb-right').style.display = 'none'
+        }
+
+        if (categories.length === 0) {
+            // space.innerHTML = (`
+            //     <h4 style="font-size: 20px">Orders are empty</h4>
+            // `)
+        } else {
+            injectSpace.innerHTML = (`
+                ${categories.reduce((acc, cur) => {
+                const {
+                    id,
+                    name,
+                    description,
+                    image_link,
+                    parent_category,
+                    available = true,
+                } = cur
+
+                const notAvailable = !available
+                const lowlight = notAvailable
+
+                const highlight = false
+
+                const goodlight = false
+                const queerlight = false
+
+                const blurrylight = false
+
+                const canView = available === true;
+                const canDelete = false
+                const canRestore = false
+                const canEdit = available === true
+                const canSetDelivered = false
+
+                const imgLink = `${window.location.origin}/${image_link}`
+                const category_link = `${window.location.origin}/category.html?category_id=${id}`
+
+                return acc + `
+                    <tr class="${blurrylight ? 'blurry-row' : ''} ${`entity-id-${id || ''}`} ${highlight ? 'active-row' : 'normal-row'} ${lowlight ? 'bad-row' : ''} ${goodlight ? 'good-row' : ''} ${queerlight ? 'queer-row' : ''}">
+                    <td>${!notAvailable ? `<a href="${category_link}" target="_blank" style="font-weight: 500;">${id}</a>` : `${id}`}</td>
+                    <td>${name}</td>
+
+                    <td>
+                    <span class="tooltip">
+                    <p class="description-text">${description}
+                    </p>
+                    <span class="tooltiptext gentle-longness">${description}</span>
+                    </span>
+                    </td>
+
+                    <td><span class=" tooltip">
+                    <a href="${imgLink}" target="_blank" style="font-weight: 500;">${imgLink}</a>
+                    <span class="tooltiptext freedom-img"><img src="${imgLink}" alt="big link"></span>
+                    </span></td>
+
+                    <td class="${parent_category ? "" : "aesthetic-null"}">${parent_category || 'NULL'}</td>
+
+                    <td>
+                    <div class="button-holder">
+                    ${canView ? `<button class="action-button view-button" onclick="handleView(${id})">View Raw</button>` : ''}
+                    ${canRestore ? `<button class="action-button revert-button" onclick="handleRestore(${id})">Restore</button>` : ''}
+                    ${canDelete ? `<button class="action-button cancel-button" onclick="handleDelete(${id})">Delete</button>` : ''}
+                    ${canEdit ? `<button class="action-button accept-button" onclick="handleEdit(${id})">Edit</button>` : ''}
+                    </div>
+                    </td>
+                    </tr>
+                    `;
+
+            }, '')}
+`)
+            if (target) {
+                const mayScrollToElement = document.querySelector(`.entity-id-${target}`)
+                if (mayScrollToElement) {
+                    mayScrollToElement.scrollIntoView()
+                }
+            }
+        }
+    }
+
+    function displayOrRemove(field, value) {
+        if (!value || value === "0") {
+            document.querySelector(`.${field}`).style.display = 'none'
+        } else {
+            document.querySelector(`.${field} .display-value`).innerText = value
+        }
+    }
+
+    const current_url = new URL(window.location.href)
+    const sortby = current_url.searchParams.get('sortby') || 'name'
+    const order = current_url.searchParams.get('order') || 'asc'
+    const page = current_url.searchParams.get('page') || 0
+    const searchby = current_url.searchParams.get('searchValue') || 0
+
+    const target = getParam('target', null)
+
+
+    displayOrRemove('display-page-label', page)
+    displayOrRemove('display-target-label', sortby)
+    displayOrRemove('display-sort-label', order)
+    displayOrRemove('display-search-label', searchby)
+
+    start(sortby, order, page, searchby, target);
+
+</script>
+
+<script>
+    async function productModificationRequest(id, fields, method = 'PUT') {
+        return fetch('/admin/categories', {
+            method: method, // *GET, POST, PUT, DELETE, etc.
+            mode: 'same-origin', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `bearer ${token}`
+            },
+            redirect: 'follow', // manual, *follow, error
+            referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+            body: JSON.stringify({
+                id: id,
+                ...fields
+            })
+        }).then(x => {
+            if (x.status === 401) {
+                //unauthorized. Maybe out of session
+                deleteCookie1()
+                alert('Your session has ended. Please log in again')
+                document.location.replace('./login.html')
+            }
+            if (x.status === 401) {
+                //unauthorized. Maybe out of session
+                deleteCookie1()
+                alert('Your session has ended. Please log in again')
+                document.location.replace('./login.html')
+            }
+
+            return x.json()
+        })
+            .then((x) => {
+                if (x && x.error) {
+                    throw new Error(x.error)
+                } else {
+                    reload(x.id)
+                }
+            })
+            .catch(err => {
+                alert(err.message)
+                console.warn(err)
+                return null
+            })
+    }
+
+    async function updateProduct(id, fields) {
+        return productModificationRequest(id, fields, 'PUT')
+    }
+
+    async function addAProduct(id, fields) {
+        return productModificationRequest(id, fields, 'POST')
+    }
+
+    function injectProductPopup(className, value) {
+        document.querySelector(`.popopen.addpop .${className}`).value = value
+    }
+
+    function injectProductPopupClass(className, value, remove = false) {
+        const classList = value.split(' ')
+        const target = document.querySelector(`.popopen.addpop .${className}`)
+
+        classList.forEach(c => {
+            if (remove) {
+                target.classList.remove(c)
+            } else {
+                target.classList.add(c)
+            }
+        })
+    }
+
+    function injectProductPopupProps(className, props) {
+        const propList = Object.entries(props)
+        const target = document.querySelector(`.popopen.addpop .${className}`)
+
+        propList.forEach(p => {
+            const [k, v] = p
+            target[k] = v
+        })
+    }
+
+    function injectProductPopupStyle(className, props) {
+        const propList = Object.entries(props)
+        const target = document.querySelector(`.popopen.addpop .${className}`)
+
+        propList.forEach(p => {
+            const [k, v] = p
+            target.style[k] = v
+        })
+    }
+
+
+    const handleEdit = (id) => {
+        const target = savedProducts.find(p => p.id === id)
+        const {
+            name,
+            description,
+            image_link,
+            parent_category,
+            available = true,
+        } = target
+
+        injectProductPopup('p-submit_type', 'edit')
+        injectProductPopupProps('pop-action', {innerText: 'Edit'})
+
+        injectProductPopup('p-id', id)
+        injectProductPopupStyle('category-id-entry', {display: 'flex'})
+
+
+        injectProductPopup('p-name', name)
+        injectProductPopup('p-description', description)
+
+        injectProductPopup('p-image_link', null)
+        injectProductPopupProps('p-image_link', {required: false})
+        clearChild('.upload-zone-1.upload-preview')
+        injectImageToPreview(image_link)
+
+        injectProductPopup('p-parent_category', parent_category || '')
+        openAddPop('')
+    }
+
+    const handleDelete = (id) => {
+        // updateProduct(id, {'available': false})
+    }
+
+    const handleRestore = (id) => {
+        // updateProduct(id, {'available': true})
+    }
+
+    const handleView = (id) => {
+        openNewTab(`${window.location.origin}/category/${id}`)
+    }
+</script>
+
+<script>
+    function closePopup() {
+        document.querySelectorAll('.popopen').forEach(e => {
+            e.classList.remove('active')
+        })
+    }
+
+    function openPopup(id, specific = 'sortpop') {
+        closePopup()
+
+        document.querySelectorAll(`.popopen.${specific}`).forEach(e => {
+            e.classList.add('active')
+            e.classList.add('active')
+        })
+
+        document.querySelectorAll(`.popopen.${specific} .target-field`).forEach(e => {
+            e.value = id || ''
+        })
+    }
+
+    function openAddPop(id) {
+        openPopup(id, 'addpop')
+    }
+
+
+    function processForm(e) {
+        // console.log('here')
+        if (e.preventDefault) {
+            e.preventDefault();
+        }
+        const formData = new FormData(e.target)
+        const sortby = formData.get('field')
+        const sortValue = formData.get('sort-value')
+        const searchValue = formData.get('search-value') || ""
+
+        changePage(url_mutation({sortby: sortby, order: sortValue, page: 0, searchValue: searchValue, target: ''}))
+        return false
+    }
+
+    const form = document.querySelector('.popopen.sortpop .popopen-form');
+    if (form.attachEvent) {
+        form.attachEvent("submit", processForm);
+    } else {
+        form.addEventListener("submit", processForm);
+    }
+</script>
+
+<script>
+    function resetPage() {
+        changePage(removeParam('target', removeParam('page', window.location.href)))
+    }
+
+    function resetSearch() {
+        changePage(removeParam('target', removeParam('searchValue', window.location.href)))
+    }
+</script>
+
+<script src="./assets/js/admin/popupProp.js"></script>
+
+<script>
+    const upload_input = document.querySelector('.upload-zone-1.upload-input')
+    const upload_display_zone = document.querySelector('.upload-zone-1.upload-preview')
+
+    function clearChild(selector) {
+        const x = document.querySelector(selector)
+        if (x) {
+            while (x.firstChild) {
+                x.removeChild(x.firstChild);
+            }
+        }
+    }
+
+    function injectImageToPreview(src) {
+        const image = document.createElement('img');
+        image.classList.add('upload-img-preview-holder')
+        image.src = window.location.origin + '/' + src
+        upload_display_zone.appendChild(image);
+    }
+
+    function updateImageDisplay() {
+        while (upload_display_zone.firstChild) {
+            upload_display_zone.removeChild(upload_display_zone.firstChild);
+        }
+
+        const curFiles = upload_input.files;
+
+        if (curFiles.length === 0) {
+            const para = document.createElement('p');
+            para.classList.add('nothing-text')
+            para.textContent = '';
+            upload_display_zone.appendChild(para);
+        } else {
+            const file = curFiles[0]
+            const para = document.createElement('p');
+            if (validFileType(file)) {
+                const sizeInKB = returnFileSizeInKB(file.size)
+                // console.log(sizeInKB)
+                const isTooBig = sizeInKB > maxUploadSize
+                if (isTooBig) {
+                    para.classList.add('danger-file-size')
+                }
+                para.classList.add('something-text')
+                para.textContent = `   ${returnFileSizeString(file.size)} ${isTooBig ? `File too large. Max file size is ${maxUploadSize}KB.` : ''}`;
+                const image = document.createElement('img');
+                image.classList.add('upload-img-preview-holder')
+                image.src = URL.createObjectURL(file);
+                upload_display_zone.appendChild(image);
+            } else {
+                para.classList.add('nothing-text')
+                para.textContent = '';
+            }
+            upload_display_zone.appendChild(para);
+        }
+    }
+
+    upload_input.addEventListener('change', updateImageDisplay);
+
+</script>
+
+<script>
+    async function getAllCategories() {
+        return fetch('/admin/categories?is_short=true', {
+            method: 'GET', // *GET, POST, PUT, DELETE, etc.
+            mode: 'same-origin', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `bearer ${token}`
+            },
+            redirect: 'follow', // manual, *follow, error
+            referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+        }).then(x => {
+            if (x.status === 401) {
+                //unauthorized. Maybe out of session
+                deleteCookie1()
+                alert('Your session has ended. Please log in again')
+                document.location.replace('./login.html')
+            }
+            return x.json()
+        })
+            .then(x => {
+                if (x && x.error) {
+                    throw new Error(x.error)
+                }
+                return x
+            })
+            .catch(err => {
+                alert(err.message)
+                console.warn(err)
+                return null
+            })
+    }
+
+    async function completeFormCategoryChoice() {
+        const categories = await getAllCategories()
+        if (categories === null || categories.length === 0) {
+            return;
+        }
+
+        clearChild('.p-category_id')
+        const p = document.querySelector('.p-parent_category')
+
+        categories.concat(null).forEach(c => {
+            const entry = document.createElement('option')
+            entry.value = c ? c.id : '';
+            entry.innerText = c ? c.id : 'NULL'
+            entry.classList.add('category-id-possible-value')
+            p.appendChild(entry)
+        })
+    }
+
+    completeFormCategoryChoice()
+</script>
+
+<script>
+    const maxUploadSize = 200 //KB
+
+    function readFileContent(file, callback) {
+        const fileReader = new FileReader();
+        fileReader.onloadend = function () {
+            callback(fileReader.result);
+        }
+        fileReader.readAsDataURL(file);
+    }
+
+    function handleSubmitProductForm(e) {
+        if (e.preventDefault) {
+            e.preventDefault();
+        }
+
+        const formData = new FormData(e.target)
+
+        const submit_type = formData.get('submit_type')
+        // console.log(submit_type)
+
+        const isEdit = submit_type === 'edit'
+        const isAdd = !isEdit
+
+        const reqBody = {}
+
+        const allowedFields = [
+            'name', 'description',
+            'image_link',
+            'parent_category',
+            'available'
+        ]
+
+        for (const pair of formData.entries()) {
+            if (allowedFields.includes(pair[0])) {
+                reqBody[pair[0]] = pair[1]
+            }
+        }
+
+        const uploadedFile = formData.get('image_link')
+        const fileSize = returnFileSizeInKB(uploadedFile.size)
+        // console.log(fileSize)
+
+        if (fileSize > maxUploadSize) {
+            alert(`Your image is too large. Max upload file size is ${maxUploadSize}KB`)
+            return false
+        }
+
+        const id = formData.get('id')
+
+        if (!id && isEdit) {
+            alert('Id is empty')
+            return false;
+        }
+
+        const type = reqBody['image_link'].type
+        const allowedType = /^image\/(png|jpe?g)$/
+
+        // console.log(type)
+
+        const isImageNotChange = reqBody['image_link'] && reqBody['image_link'].size === 0
+
+        if (!allowedType.test(type) && !isImageNotChange) {
+            alert('Invalid file type. Expect jpg/jpeg/png.')
+            return false;
+        }
+
+        readFileContent(reqBody['image_link'], (file) => {
+            if (!isImageNotChange) {
+                reqBody['image_link_type'] = type
+                reqBody['image_link'] = file
+            } else {
+                reqBody['image_link'] = ''
+            }
+            if (isEdit) {
+                updateProduct(id, reqBody)
+            } else {
+                addAProduct(id, reqBody)
+            }
+        })
+
+        return false
+    }
+
+    const productForm = document.querySelector('.popopen.addpop .popopen-form');
+    if (productForm.attachEvent) {
+        productForm.attachEvent("submit", handleSubmitProductForm);
+    } else {
+        productForm.addEventListener("submit", handleSubmitProductForm);
+    }
+</script>
+
+
+<script type="text/javascript">
+    function handleAddNew() {
+        injectProductPopup('p-submit_type', 'add')
+        injectProductPopupProps('pop-action', {innerText: 'Add new'})
+
+
+        injectProductPopup('p-id', '')
+        injectProductPopupStyle('category-id-entry', {display: 'none'})
+
+        injectProductPopup('p-name', '')
+        injectProductPopup('p-description', '')
+
+        injectProductPopup('p-image_link', null)
+        injectProductPopupProps('p-image_link', {required: true})
+
+        clearChild('.upload-zone-1.upload-preview')
+
+        injectProductPopup('p-parent_category', '')
+
+        openAddPop('')
+    }
+</script>
+
+</body>
+
+<style>
+    .description-text {
+        max-width: 300px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    .even-bigger-max-option {
+        width: 82%;
+    }
+
+</style>
+
+</html>
